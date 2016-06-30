@@ -32,6 +32,7 @@ public void draw() {
   rotateY(frameCount * 0.01f);
 
   for (int i = 0; i < num; i++) {
+    points[i].update();
     points[i].display();
   }
 
@@ -64,15 +65,38 @@ class Point {
   float x;
   float y;
   float z;
+  float targetX;
+  float targetY;
+  float targetZ;
   float radius;
 
   Point() {
-    radius = 150;
+    setTarget();
+    x = targetX;
+    y = targetY;
+    z = targetZ;
+  }
+
+  public void setTarget() {
+    if (random(2) < 1) {
+      radius = 150;
+    } else {
+      radius = 75;
+    }
     float phi = random(TWO_PI);
     float unitZ = random(-1, 1);
-    x = radius * sqrt(1 - unitZ * unitZ) * cos(phi);
-    y = radius * sqrt(1 - unitZ * unitZ) * sin(phi);
-    z = radius * unitZ;
+    targetX = radius * sqrt(1 - unitZ * unitZ) * cos(phi);
+    targetY = radius * sqrt(1 - unitZ * unitZ) * sin(phi);
+    targetZ = radius * unitZ;
+  }
+
+  public void update() {
+    if (frameCount % 120 == 0) {
+      setTarget();
+    }
+    x += (targetX - x) * 0.05f;
+    y += (targetY - y) * 0.05f;
+    z += (targetZ - z) * 0.05f;
   }
 
   public void display() {

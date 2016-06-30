@@ -16,6 +16,7 @@ void draw() {
   rotateY(frameCount * 0.01);
 
   for (int i = 0; i < num; i++) {
+    points[i].update();
     points[i].display();
   }
 

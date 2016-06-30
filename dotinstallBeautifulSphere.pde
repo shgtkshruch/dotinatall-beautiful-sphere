@@ -9,13 +9,12 @@ void setup() {
   pixelDensity(displayDensity());
 
   for (int i = 0; i < num; i++) {
-    float theta = random(PI);
     float phi = random(TWO_PI);
+    float unitZ = random(-1, 1);
 
-    x[i] = radius * sin(theta) * cos(phi);
-    y[i] = radius * sin(theta) * sin(phi);
-    z[i] = radius * cos(theta);
-
+    x[i] = radius * sqrt(1 - unitZ * unitZ) * cos(phi);
+    y[i] = radius * sqrt(1 - unitZ * unitZ) * sin(phi);
+    z[i] = radius * unitZ;
   }
 }
 

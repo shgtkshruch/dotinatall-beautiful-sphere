@@ -15,6 +15,8 @@ import java.io.IOException;
 public class dotinstallBeautifulSphere extends PApplet {
 
 float radius = 150;
+float dPhiStep = 0;
+float dPhiVelocity = 0.05f;
 
 public void setup() {
   
@@ -30,7 +32,7 @@ public void draw() {
   float lastY = 0;
   float lastZ = 0;
 
-  for (int dTheta = 0, dPhi = 0; dTheta <= 180; dTheta ++, dPhi += 10) {
+  for (float dTheta = 0, dPhi = 0; dTheta <= 180; dTheta ++, dPhi += dPhiStep) {
     float theta = radians(dTheta);
     float phi = radians(dPhi);
 
@@ -45,13 +47,15 @@ public void draw() {
       line(lastX, lastY, lastZ, x, y, z);
     }
 
-    strokeWeight(4);
+    strokeWeight(8);
     point(x, y, z);
 
     lastX = x;
     lastY = y;
     lastZ = z;
   }
+
+  dPhiStep += dPhiVelocity;
 }
   public void settings() {  size(640, 360, P3D);  pixelDensity(displayDensity()); }
   static public void main(String[] passedArgs) {

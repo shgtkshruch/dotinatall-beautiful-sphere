@@ -15,47 +15,36 @@ import java.io.IOException;
 public class dotinstallBeautifulSphere extends PApplet {
 
 float radius = 150;
-float dPhiStep = 0;
-float dPhiVelocity = 0.05f;
+int num = 3000;
+float[] x = new float[num];
+float[] y = new float[num];
+float[] z = new float[num];
 
 public void setup() {
   
   
+
+  for (int i = 0; i < num; i++) {
+    float theta = random(PI);
+    float phi = random(TWO_PI);
+
+    x[i] = radius * sin(theta) * cos(phi);
+    y[i] = radius * sin(theta) * sin(phi);
+    z[i] = radius * cos(theta);
+
+  }
 }
 
 public void draw() {
   background(255);
   translate(width/2, height/2, 0);
-  rotateY(frameCount * 0.02f);
+  rotateY(frameCount * 0.01f);
 
-  float lastX = 0;
-  float lastY = 0;
-  float lastZ = 0;
-
-  for (float dTheta = 0, dPhi = 0; dTheta <= 180; dTheta ++, dPhi += dPhiStep) {
-    float theta = radians(dTheta);
-    float phi = radians(dPhi);
-
-    float x = radius * sin(theta) * cos(phi);
-    float y = radius * sin(theta) * sin(phi);
-    float z = radius * cos(theta);
-
+  for (int i = 0; i < num; i++) {
     stroke(0);
-
-    if (lastX != 0) {
-      strokeWeight(1);
-      line(lastX, lastY, lastZ, x, y, z);
-    }
-
-    strokeWeight(8);
-    point(x, y, z);
-
-    lastX = x;
-    lastY = y;
-    lastZ = z;
+    strokeWeight(3);
+    point(x[i], y[i], z[i]);
   }
-
-  dPhiStep += dPhiVelocity;
 }
   public void settings() {  size(640, 360, P3D);  pixelDensity(displayDensity()); }
   static public void main(String[] passedArgs) {

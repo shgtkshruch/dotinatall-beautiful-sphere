@@ -26,14 +26,23 @@ public void draw() {
   translate(width/2, height/2, 0);
   rotateY(frameCount * 0.02f);
 
+  for (int dTheta = 0; dTheta <= 180; dTheta += 10) {
+    float theta = radians(dTheta);
+    float z = radius * cos(theta);
+    float r = radius * sin(theta);
+    drawCircle(z, r);
+  }
+}
+
+public void drawCircle(float z, float r) {
   for (int dPhi = 0; dPhi < 360; dPhi += 10) {
     float phi = radians(dPhi);
-    float x = radius * cos(phi);
-    float y = radius * sin(phi);
+    float x = r * cos(phi);
+    float y = r * sin(phi);
 
     stroke(0);
     strokeWeight(4);
-    point(x, y, 0);
+    point(x, y, z);
   }
 }
   public void settings() {  size(640, 360, P3D);  pixelDensity(displayDensity()); }

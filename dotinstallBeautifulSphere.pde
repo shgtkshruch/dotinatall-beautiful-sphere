@@ -10,19 +10,12 @@ void draw() {
   translate(width/2, height/2, 0);
   rotateY(frameCount * 0.02);
 
-  for (int dTheta = 0; dTheta <= 180; dTheta += 10) {
+  for (int dTheta = 0, dPhi = 0; dTheta <= 180; dTheta ++, dPhi += 10) {
     float theta = radians(dTheta);
     float z = radius * cos(theta);
-    float r = radius * sin(theta);
-    drawCircle(z, r);
-  }
-}
-
-void drawCircle(float z, float r) {
-  for (int dPhi = 0; dPhi < 360; dPhi += 10) {
     float phi = radians(dPhi);
-    float x = r * cos(phi);
-    float y = r * sin(phi);
+    float x = radius * sin(theta) * cos(phi);
+    float y = radius * sin(theta) * sin(phi);
 
     stroke(0);
     strokeWeight(4);
